@@ -6,7 +6,13 @@ import java.util.Scanner;
 public class UserInput {
     static Scanner myScanner = new Scanner(System.in);
 
-    public String userInputInt(String prompt, String regEx, int inputLength) {
+    public int userInputInt(String prompt, String regEx, int inputLength) {
+        System.out.println(prompt);
+        Pattern inputPatter = Pattern.compile(regEx);
+        return Integer.parseInt(userInputString(inputPatter, inputLength));
+    }
+
+    public String userInputString(String prompt, String regEx, int inputLength) {
         System.out.println(prompt);
         Pattern inputPatter = Pattern.compile(regEx);
         return userInputString(inputPatter, inputLength);

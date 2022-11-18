@@ -12,7 +12,6 @@ public class Student {
     public Student(String firstName, String lastName, MatriculationNumber matriculation, StudyCurriculum enrolledCurriculum) {
         this.firstName = firstName;
         this.lastName = lastName;
-//        this.emailAddress = emailAddress;
         this.emailAddress = firstName.toLowerCase() + "." + lastName.toLowerCase() + "@st.oth-regensburg.de";
         this.matriculation = matriculation;
         this.enrolledCurriculum = enrolledCurriculum;

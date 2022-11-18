@@ -28,4 +28,8 @@ public class University {
     public void addCurriculaToUniversity(StudyCurriculum newCurriculum) {
         this.getAvailableStudyCurricula().add(newCurriculum);
     }
+
+    public void addStudentToUniversity(String firstName, String lastName, MatriculationNumber matriculation, StudyCurriculum enrolledCurriculum) {
+        enlistedStudent.add(new Student(firstName, lastName, matriculation, enrolledCurriculum));
+    }
 }
