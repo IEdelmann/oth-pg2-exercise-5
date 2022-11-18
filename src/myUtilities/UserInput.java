@@ -18,6 +18,11 @@ public class UserInput {
         return userInputString(inputPatter, inputLength);
     }
 
+    public String userInputPureString(String prompt) {
+        System.out.println(prompt);
+        return myScanner.nextLine();
+    }
+
     private String userInputString(Pattern inputPatter, int inputLength) {
         String userInput;
         Matcher inputMatcher;

@@ -79,12 +79,24 @@ public class Main {
                     printSpecificStudentsData(othRegensburg);
                     break;
 
+                case 3:
+                    System.out.println();
+
+                    break;
+
                 case 5:
                     System.out.println();
                     System.out.println("Exit management application NOW!");
                     runTimeLoop = false;
             }
         }
+    }
+
+    public static void addNewStudent(University university) {
+        UserInput userInput = new UserInput();
+        String firstName = userInput.userInputPureString("Enter first name: ");
+        String lastName = userInput.userInputPureString("Enter last name: ");
+        university.addStudentToUniversity();
     }
 
     public static void printSpecificStudentsData(University university) {
@@ -125,7 +137,7 @@ public class Main {
         System.out.println();
         System.out.println("1: Print summary of all enlisted students.");
         System.out.println("2: Print data of a specific student.");
-        System.out.println("1: Print summary of all enlisted students.");
+        System.out.println("3: Add new student.");
         System.out.println("1: Print summary of all enlisted students.");
         System.out.println("5: Exit student management application");
 
