@@ -31,8 +31,19 @@ public class Main {
         curriculumGeneralInformationBachelor.addStudyCourseToCurriculum(courseProgrammingOne);
         curriculumEconomicInformationBachelor.addStudyCourseToCurriculum(courseProgrammingTwo);
 
-        MatriculationNumber myMatriculNumber = new MatriculationNumber();
-        myMatriculNumber.setMatriculationNumber("12345679");
-        System.out.println("Input Matricul: " + myMatriculNumber.getMatriculationNumber());
+        MatriculationNumber testMatricularNumber = new MatriculationNumber();
+        testMatricularNumber.setMatriculationNumber("12345679");
+
+        Student testStudent = new Student("Ringo", "Kugelfade",  testMatricularNumber, curriculumEconomicInformationBachelor);
+
+        System.out.println("Test students data: ");
+        System.out.println("Name: " + testStudent.getFirstName() + " " + testStudent.getLastName());
+        System.out.println("Email: " + testStudent.getEmailAddress());
+        System.out.println("Matricular number: " + testStudent.getMatriculation().getMatriculationNumber());
+        System.out.println("Enrolled in: " + testStudent.getEnrolledCurriculum().getCurriculumName());
+        System.out.println("Courses: ");
+        for (int i = 0; i < testStudent.getEnrolledCourses().size(); i++) {
+            System.out.println(testStudent.getEnrolledCourses().get(i).getStudyCourseName());
+        }
     }
 }

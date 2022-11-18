@@ -1,38 +1,37 @@
 public class StudyCourse {
-    private static String studyCourseName;
-    private static int credits;
-    private static int multiplication;
-
+    private String studyCourseName;
+    private int credits;
+    private int multiplication;
     private int courseMark;
 
     public StudyCourse(String studyCourseName, int credits, int multiplication) {
-        StudyCourse.studyCourseName = studyCourseName;
-        StudyCourse.credits = credits;
-        StudyCourse.multiplication = multiplication;
+        this.studyCourseName = studyCourseName;
+        this.credits = credits;
+        this.multiplication = multiplication;
     }
 
-    public static String getStudyCourseName() {
+    public String getStudyCourseName() {
         return studyCourseName;
     }
 
-    public static void setStudyCourseName(String studyCourseName) {
-        StudyCourse.studyCourseName = studyCourseName;
+    public void setStudyCourseName(String studyCourseName) {
+        this.studyCourseName = studyCourseName;
     }
 
-    public static int getCredits() {
+    public int getCredits() {
         return credits;
     }
 
-    public static void setCredits(int credits) {
-        StudyCourse.credits = credits;
+    public void setCredits(int credits) {
+        this.credits = credits;
     }
 
-    public static int getMultiplication() {
+    public int getMultiplication() {
         return multiplication;
     }
 
-    public static void setMultiplication(int multiplication) {
-        StudyCourse.multiplication = multiplication;
+    public void setMultiplication(int multiplication) {
+        this.multiplication = multiplication;
     }
 
     public int getCourseMark() {
