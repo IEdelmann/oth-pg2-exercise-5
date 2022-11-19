@@ -12,7 +12,6 @@ public class Student {
     public Student(String firstName, String lastName, MatriculationNumber matriculation, StudyCurriculum enrolledCurriculum) {
         this.firstName = firstName;
         this.lastName = lastName;
-//        this.emailAddress = firstName.toLowerCase() + "." + lastName.toLowerCase() + "@st.oth-regensburg.de";
         this.emailAddress = generateEmailAddress();
         this.matriculation = matriculation;
         this.enrolledCurriculum = enrolledCurriculum;
@@ -73,7 +72,7 @@ public class Student {
     }
 
     public void changeLastName(String newLastName) {
-        this.setFirstName(newLastName);
+        this.setLastName(newLastName);
         this.emailAddress = generateEmailAddress();
     }
 
