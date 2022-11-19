@@ -10,6 +10,10 @@ public class StudyCourse {
         this.multiplication = multiplication;
     }
 
+    public StudyCourse(StudyCourse deepCopy) {
+        this(deepCopy.getStudyCourseName(), deepCopy.getCredits(), deepCopy.getMultiplication());
+    }
+
     public String getStudyCourseName() {
         return studyCourseName;
     }

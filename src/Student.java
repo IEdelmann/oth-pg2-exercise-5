@@ -7,7 +7,7 @@ public class Student {
     private MatriculationNumber matriculation;
     private StudyCurriculum enrolledCurriculum;
 
-    private ArrayList<StudyCourse> enrolledCourses;
+    private ArrayList<StudyCourse> enrolledCourses = new ArrayList<>();
 
     public Student(String firstName, String lastName, MatriculationNumber matriculation, StudyCurriculum enrolledCurriculum) {
         this.firstName = firstName;
@@ -15,7 +15,14 @@ public class Student {
         this.emailAddress = generateEmailAddress();
         this.matriculation = matriculation;
         this.enrolledCurriculum = enrolledCurriculum;
-        this.enrolledCourses = new ArrayList<>(this.getEnrolledCurriculum().getCoveredStudyCourses());
+        deepCopyStudyCourses(this.getEnrolledCurriculum().getCoveredStudyCourses());
+
+    }
+
+    private void deepCopyStudyCourses(ArrayList<StudyCourse> studyCourses) {
+        for (int i = 0; i < studyCourses.size(); i++) {
+            this.enrolledCourses.add(new StudyCourse(studyCourses.get(i)));
+        }
     }
 
     private String generateEmailAddress() {

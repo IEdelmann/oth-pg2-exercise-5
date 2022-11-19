@@ -180,26 +180,6 @@ public class Main {
 
     }
 
-    // Option: 1 = use ArrayList of StudyCurriculum; 2 = user ArrayList of StudyCourse
-//    public static int getIndexOfArrayList(University university, int option) {
-//        UserInput userInput = new UserInput();
-//
-//        if (option == 1) {
-//
-//        }
-//
-//        ArrayList<StudyCourse> = university.getAvailableStudyCurricula()
-//
-//        for (int i = 0; i < university.getAvailableStudyCurricula().size(); i++) {
-//            System.out.println((i + 1) + ". " + university.getAvailableStudyCurricula().get(i).getCurriculumName());
-//        }
-//        System.out.println();
-//        String indexRegEx = "[" + 1 + "-" + university.getAvailableStudyCurricula().size() + "]";
-//        int maximalLength = String.valueOf(university.getAvailableStudyCurricula().size()).length();
-//
-//        return userInput.userInputInt("Enter option: ", indexRegEx, maximalLength) - 1;
-//    }
-
     public static void addNewStudent(University university) {
         UserInput userInput = new UserInput();
         String firstName = userInput.userInputPureString("Enter first name: ");
@@ -245,15 +225,6 @@ public class Main {
     }
 
     public static void printSpecificStudentsData(University university) {
-//        printListOfEnlistedStudents(university);
-//
-//        UserInput userInput = new UserInput();
-//        String indexRegEx = "[" + 0 + "-" + university.getEnlistedStudent().size() + "]";
-//        int maximalLength = String.valueOf(university.getEnlistedStudent().size()).length();
-//        int indexStudent = userInput.userInputInt("Enter index: ", indexRegEx, maximalLength) - 1;
-//
-//        Student tempStudent = university.getEnlistedStudent().get(indexStudent);
-
         Student tempStudent = chooseStudentIndex(university);
 
         System.out.println("");
