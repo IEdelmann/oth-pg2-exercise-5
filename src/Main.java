@@ -236,7 +236,7 @@ public class Main {
     public static void printSpecificStudentsData(University university) {
         Student tempStudent = chooseStudentIndex(university);
 
-        System.out.println("");
+        System.out.println();
         System.out.println("Students name: " + tempStudent.getFirstName() + " " + tempStudent.getLastName());
         System.out.println("Email: " + tempStudent.getEmailAddress());
         System.out.println("Matriculation number: " + tempStudent.getMatriculation().getMatriculationNumber());
