@@ -7,15 +7,20 @@ public class Student {
     private MatriculationNumber matriculation;
     private StudyCurriculum enrolledCurriculum;
 
-    private final ArrayList<StudyCourse> enrolledCourses;
+    private ArrayList<StudyCourse> enrolledCourses;
 
     public Student(String firstName, String lastName, MatriculationNumber matriculation, StudyCurriculum enrolledCurriculum) {
         this.firstName = firstName;
         this.lastName = lastName;
-        this.emailAddress = firstName.toLowerCase() + "." + lastName.toLowerCase() + "@st.oth-regensburg.de";
+//        this.emailAddress = firstName.toLowerCase() + "." + lastName.toLowerCase() + "@st.oth-regensburg.de";
+        this.emailAddress = generateEmailAddress();
         this.matriculation = matriculation;
         this.enrolledCurriculum = enrolledCurriculum;
         this.enrolledCourses = new ArrayList<>(this.getEnrolledCurriculum().getCoveredStudyCourses());
+    }
+
+    private String generateEmailAddress() {
+        return this.getFirstName().toLowerCase() + "." + this.getLastName().toLowerCase() + "@st.oth-regensburg.de";
     }
 
     public String getFirstName() {
@@ -60,5 +65,24 @@ public class Student {
 
     public ArrayList<StudyCourse> getEnrolledCourses() {
         return enrolledCourses;
+    }
+
+    public void changeFirstName(String newFirstName) {
+        this.setFirstName(newFirstName);
+        this.emailAddress = generateEmailAddress();
+    }
+
+    public void changeLastName(String newLastName) {
+        this.setFirstName(newLastName);
+        this.emailAddress = generateEmailAddress();
+    }
+
+    public void changeCurriculum(StudyCurriculum newCurriculum) {
+        this.enrolledCurriculum = newCurriculum;
+
+        this.enrolledCourses = null;
+        System.gc();
+
+        this.enrolledCourses = new ArrayList<>(this.getEnrolledCurriculum().getCoveredStudyCourses());
     }
 }

@@ -5,8 +5,8 @@ public class MatriculationNumber {
     private String matriculationNumber;
 
     public MatriculationNumber() {
-        this.matriculationNumber = "NULL";
         MatriculationNumber.matriculationNumberCounter++;
+        this.matriculationNumber = generateMatriculationNumber();
     }
 
     public String getMatriculationNumber() {
@@ -18,8 +18,17 @@ public class MatriculationNumber {
     String validMatriculationRegEx = "[0-9]";
     int validMatriculationLength = 8;
 
-    private void generateMatriculationNumber() {
-        
+    private String generateMatriculationNumber() {
+        int matriculationNumberFillUp = validMatriculationLength - String.valueOf(MatriculationNumber.matriculationNumberCounter).length();
+        String newMatriculationNumber = "";
+
+        for (int i = 0; i < matriculationNumberFillUp; i++) {
+            newMatriculationNumber += "0";
+        }
+
+        newMatriculationNumber += Integer.toString(MatriculationNumber.matriculationNumberCounter);
+
+        return newMatriculationNumber;
     }
 
     public void setMatriculationNumber(String input) {

@@ -39,6 +39,9 @@ public class Main {
         MatriculationNumber secondTestStudentMatricularNumber = new MatriculationNumber();
         secondTestStudentMatricularNumber.setMatriculationNumber("42042069");
         othRegensburg.addStudentToUniversity("Jack", "Peppermint", secondTestStudentMatricularNumber, curriculumEconomicInformationMaster);
+        // Third test student - this time utilizing the automatically generated matriculation number
+        MatriculationNumber thirdTestStudentMatriculationNumber = new MatriculationNumber();
+        othRegensburg.addStudentToUniversity("Natali", "Dore", thirdTestStudentMatriculationNumber, curriculumGeneralInformationBachelor);
 
         // Print the test students data
 //        for (int i = 0; i < othRegensburg.getEnlistedStudent().size(); i++) {
@@ -81,6 +84,11 @@ public class Main {
 
                 case 3:
                     System.out.println();
+                    addNewStudent(othRegensburg);
+                    break;
+
+                case 4:
+                    System.out.println();
 
                     break;
 
@@ -92,14 +100,40 @@ public class Main {
         }
     }
 
+    public static void editEnlistedStudentsData(University university) {
+        Student tempStudent = chooseStudentIndex(university);
+
+        System.out.println("Change data of: \n");
+        System.out.println("1. First name: " + tempStudent.getFirstName());
+        System.out.println("2. Last name: " + tempStudent.getLastName());
+        System.out.println("3. Current curriculum: " + tempStudent.getEnrolledCurriculum().getCurriculumName());
+
+        UserInput userInput = new UserInput();
+        int chosenChangeIndex = userInput.userInputInt("Choose entry to change: ", "[0-3]", 1);
+
+        
+    }
+
     public static void addNewStudent(University university) {
         UserInput userInput = new UserInput();
         String firstName = userInput.userInputPureString("Enter first name: ");
         String lastName = userInput.userInputPureString("Enter last name: ");
-        university.addStudentToUniversity();
+
+        for (int i = 0; i < university.getAvailableStudyCurricula().size(); i++) {
+            System.out.println((i + 1) + ". " + university.getAvailableStudyCurricula().get(i).getCurriculumName());
+        }
+        System.out.println();
+        String indexRegEx = "[" + 0 + "-" + university.getAvailableStudyCurricula().size() + "]";
+        int maximalLength = String.valueOf(university.getAvailableStudyCurricula().size()).length();
+
+        int chooseCurriculum = userInput.userInputInt("Choose curriculum: ", indexRegEx, maximalLength) - 1;
+        university.addStudentToUniversity(firstName, lastName, new MatriculationNumber(), university.getAvailableStudyCurricula().get(chooseCurriculum));
+
+        System.out.println("New student added :)\n");
     }
 
-    public static void printSpecificStudentsData(University university) {
+    public static Student chooseStudentIndex(University university) {
+
         printListOfEnlistedStudents(university);
 
         UserInput userInput = new UserInput();
@@ -107,7 +141,20 @@ public class Main {
         int maximalLength = String.valueOf(university.getEnlistedStudent().size()).length();
         int indexStudent = userInput.userInputInt("Enter index: ", indexRegEx, maximalLength) - 1;
 
-        Student tempStudent = university.getEnlistedStudent().get(indexStudent);
+        return university.getEnlistedStudent().get(indexStudent);
+    }
+
+    public static void printSpecificStudentsData(University university) {
+//        printListOfEnlistedStudents(university);
+//
+//        UserInput userInput = new UserInput();
+//        String indexRegEx = "[" + 0 + "-" + university.getEnlistedStudent().size() + "]";
+//        int maximalLength = String.valueOf(university.getEnlistedStudent().size()).length();
+//        int indexStudent = userInput.userInputInt("Enter index: ", indexRegEx, maximalLength) - 1;
+//
+//        Student tempStudent = university.getEnlistedStudent().get(indexStudent);
+
+        Student tempStudent = chooseStudentIndex(university);
 
         System.out.println("");
         System.out.println("Name: " + tempStudent.getFirstName() + " " + tempStudent.getLastName());
@@ -138,7 +185,7 @@ public class Main {
         System.out.println("1: Print summary of all enlisted students.");
         System.out.println("2: Print data of a specific student.");
         System.out.println("3: Add new student.");
-        System.out.println("1: Print summary of all enlisted students.");
+        System.out.println("4: Edit student data.");
         System.out.println("5: Exit student management application");
 
     }
