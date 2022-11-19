@@ -1,5 +1,4 @@
 import myUtilities.UserInput;
-
 import java.util.ArrayList;
 
 public class Main {
@@ -46,24 +45,6 @@ public class Main {
         MatriculationNumber thirdTestStudentMatriculationNumber = new MatriculationNumber();
         othRegensburg.addStudentToUniversity("Natali", "Dore", thirdTestStudentMatriculationNumber, curriculumGeneralInformationBachelor);
 
-        // Print the test students data
-//        for (int i = 0; i < othRegensburg.getEnlistedStudent().size(); i++) {
-//            Student tempStudent = othRegensburg.getEnlistedStudent().get(i);
-//
-//            System.out.println(i + ". students data: ");
-//            System.out.println("Name: " + tempStudent.getFirstName() + " " + tempStudent.getLastName());
-//            System.out.println("Email: " + tempStudent.getEmailAddress());
-//            System.out.println("Matricular number: " + tempStudent.getMatriculation().getMatriculationNumber());
-//            System.out.println("Enrolled in: " + tempStudent.getEnrolledCurriculum().getCurriculumName());
-//            System.out.println("Courses: ");
-//
-//            for (int j = 0; j < tempStudent.getEnrolledCourses().size(); j++) {
-//                System.out.println(tempStudent.getEnrolledCourses().get(j).getStudyCourseName());
-//            }
-//
-//            System.out.println();
-//        }
-
         // Actual 'Student Management Application'
         boolean runTimeLoop = true;
         int menuOption;
@@ -74,53 +55,71 @@ public class Main {
             menuOption = menuInput.userInputInt("Choose operation: ", "[1-6]", 1);
 
             switch (menuOption) {
-
-                case 1:
+                case 1 -> {
                     System.out.println();
                     printListOfEnlistedStudents(othRegensburg);
-                    break;
-
-                case 2:
+                }
+                case 2 -> {
                     System.out.println();
                     printSpecificStudentsData(othRegensburg);
-                    break;
-
-                case 3:
+                }
+                case 3 -> {
                     System.out.println();
                     addNewStudent(othRegensburg);
-                    break;
-
-                case 4:
+                }
+                case 4 -> {
                     System.out.println();
                     enterMarkToStudentsCourse(othRegensburg);
-                    break;
-
-                case 5:
+                }
+                case 5 -> {
                     System.out.println();
                     editEnlistedStudentsData(othRegensburg);
-                    break;
-
-                case 6:
+                }
+                case 6 -> {
                     System.out.println();
                     System.out.println("Exit management application NOW!");
                     runTimeLoop = false;
+                }
             }
         }
     }
 
     public static void enterMarkToStudentsCourse(University university) {
-        Student tempStudent = chooseStudentIndex(university);
-        StudyCourse tempStudyCourse = chooseStudyCourseIndex(tempStudent);
-
-        System.out.println("Current mark in " + tempStudyCourse.getStudyCourseName() + ": " + tempStudyCourse.getCourseMark());
-
+        boolean runTimeFlag = true;
+        int menuOption;
         UserInput userInput = new UserInput();
-        String inputRegEx = "[" + 1 + "-" + 6 + "]";
-        int inputMaxLength = 1;
-        int newStudyCourseMark = userInput.userInputInt("Enter new mark: ", inputRegEx, inputMaxLength);
+        String inputRegEx;
+        int inputMaxLength;
 
-        tempStudyCourse.setCourseMark(newStudyCourseMark);
-        System.out.println("New mark set!\n");
+        Student tempStudent = chooseStudentIndex(university);
+
+        while (runTimeFlag) {
+
+            System.out.println("1: Continue editing on: " + tempStudent.getMatriculation().getMatriculationNumber() + " " + tempStudent.getLastName());
+            System.out.println("2: Exit mark editing.");
+            inputRegEx = "[1-2]";
+            inputMaxLength = 1;
+            menuOption = userInput.userInputInt("Enter option: ", inputRegEx, inputMaxLength);
+
+            switch (menuOption) {
+                case 1 -> {
+                    StudyCourse tempStudyCourse = chooseStudyCourseIndex(tempStudent);
+                    System.out.println("Subject: " + tempStudyCourse.getStudyCourseName());
+                    System.out.printf("Mark: %,.2f\n", tempStudyCourse.getCourseMark());
+
+                    inputRegEx = "[" + 1 + "-" + 6 + "]";
+                    int newStudyCourseMark = userInput.userInputInt("Enter new mark: ", inputRegEx, inputMaxLength);
+
+                    tempStudyCourse.setCourseMark(newStudyCourseMark);
+                    System.out.println("New mark set!\n");
+                }
+
+                case 2 -> {
+                    runTimeFlag = false;
+                    System.out.println("Exiting now!\n");
+                }
+            }
+        }
     }
 
     public static void editEnlistedStudentsData(University university) {
@@ -142,7 +141,6 @@ public class Main {
             System.out.println("3. Current curriculum: " + tempStudent.getEnrolledCurriculum().getCurriculumName());
             System.out.println("4. Exit editing.");
             menuOptionMainLoop = userInput.userInputInt("Choose entry to change: ", "[1-4]", 1) - 1;
-
 
             switch (menuOptionMainLoop) {
                 case 0 -> {
@@ -177,7 +175,6 @@ public class Main {
                 default -> System.out.println("This line of code was not supposed to ever see the light of the day...");
             }
         }
-
     }
 
     public static void addNewStudent(University university) {
@@ -228,15 +225,19 @@ public class Main {
         Student tempStudent = chooseStudentIndex(university);
 
         System.out.println("");
-        System.out.println("Name: " + tempStudent.getFirstName() + " " + tempStudent.getLastName());
+        System.out.println("Students name: " + tempStudent.getFirstName() + " " + tempStudent.getLastName());
         System.out.println("Email: " + tempStudent.getEmailAddress());
         System.out.println("Matriculation number: " + tempStudent.getMatriculation().getMatriculationNumber());
         System.out.println("Enrolled in: " + tempStudent.getEnrolledCurriculum().getCurriculumName());
-        System.out.println("Courses: ");
+        System.out.println("-- Exams --");
 
         ArrayList<StudyCourse> tempArray = tempStudent.getEnrolledCourses();
         for (int j = 0; j < tempStudent.getEnrolledCourses().size(); j++) {
-            System.out.println("- " + tempArray.get(j).getStudyCourseName() + " - mark: " + tempArray.get(j).getCourseMark());
+            System.out.println("Name: " + tempArray.get(j).getStudyCourseName());
+            System.out.println("Credit: " + tempArray.get(j).getCredits());
+            System.out.println("Multiplication: " + tempArray.get(j).getMultiplication());
+            System.out.printf("Mark: %,.2f\n", tempArray.get(j).getCourseMark());
+            System.out.println("-- -- -- -- -- --");
         }
 
         System.out.println();
@@ -260,6 +261,5 @@ public class Main {
         System.out.println("4: Add a mark to a course.");
         System.out.println("5: Edit student data.");
         System.out.println("6: Exit student management application");
-
     }
 }

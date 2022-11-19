@@ -2,7 +2,7 @@ public class StudyCourse {
     private String studyCourseName;
     private int credits;
     private int multiplication;
-    private int courseMark;
+    private double courseMark;
 
     public StudyCourse(String studyCourseName, int credits, int multiplication) {
         this.studyCourseName = studyCourseName;
@@ -38,7 +38,7 @@ public class StudyCourse {
         this.multiplication = multiplication;
     }
 
-    public int getCourseMark() {
+    public double getCourseMark() {
         return courseMark;
     }
 
