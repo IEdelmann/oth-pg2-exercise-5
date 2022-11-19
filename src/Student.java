@@ -16,9 +16,9 @@ public class Student {
         this.matriculation = matriculation;
         this.enrolledCurriculum = enrolledCurriculum;
         deepCopyStudyCourses(this.getEnrolledCurriculum().getCoveredStudyCourses());
-
     }
 
+    // Creates deep copies of every StudyCourse objects;
     private void deepCopyStudyCourses(ArrayList<StudyCourse> studyCourses) {
         for (int i = 0; i < studyCourses.size(); i++) {
             this.enrolledCourses.add(new StudyCourse(studyCourses.get(i)));
@@ -49,7 +49,8 @@ public class Student {
         return emailAddress;
     }
 
-    public void setEmailAddress(String emailAddress) {
+    // Deactivated this setter;
+    private void setEmailAddress(String emailAddress) {
         this.emailAddress = emailAddress;
     }
 
@@ -57,7 +58,8 @@ public class Student {
         return matriculation;
     }
 
-    public void setMatriculation(MatriculationNumber matriculation) {
+    // Deactivated this setter;
+    private void setMatriculation(MatriculationNumber matriculation) {
         this.matriculation = matriculation;
     }
 
@@ -65,7 +67,8 @@ public class Student {
         return enrolledCurriculum;
     }
 
-    public void setEnrolledCurriculum(StudyCurriculum enrolledCurriculum) {
+    // Deactivated this setter;
+    private void setEnrolledCurriculum(StudyCurriculum enrolledCurriculum) {
         this.enrolledCurriculum = enrolledCurriculum;
     }
 
@@ -86,9 +89,9 @@ public class Student {
     public void changeCurriculum(StudyCurriculum newCurriculum) {
         this.enrolledCurriculum = newCurriculum;
 
-        this.enrolledCourses = null;
-        System.gc();
+        this.enrolledCourses = null;        // Sets to current object to 'null' to delete it;
+        System.gc();        // Garbage collector Galore;
 
-        this.enrolledCourses = new ArrayList<>(this.getEnrolledCurriculum().getCoveredStudyCourses());
+        this.enrolledCourses = new ArrayList<>(this.getEnrolledCurriculum().getCoveredStudyCourses());      // Get the new ArrayList of StudyCourses;
     }
 }

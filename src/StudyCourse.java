@@ -10,6 +10,7 @@ public class StudyCourse {
         this.multiplication = multiplication;
     }
 
+    // Constructor overload: enables deep copies;
     public StudyCourse(StudyCourse deepCopy) {
         this(deepCopy.getStudyCourseName(), deepCopy.getCredits(), deepCopy.getMultiplication());
     }

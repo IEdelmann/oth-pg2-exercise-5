@@ -1,9 +1,11 @@
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
+
 public class MatriculationNumber {
-    private static int matriculationNumberCounter = 0;
+    private static int matriculationNumberCounter = 0;      // This variable is important to generate matriculation numbers;
     private String matriculationNumber;
 
+    // Just the creation of a new MatriculationNumber objects sets the number by generating one;
     public MatriculationNumber() {
         MatriculationNumber.matriculationNumberCounter++;
         this.matriculationNumber = generateMatriculationNumber();
@@ -13,6 +15,7 @@ public class MatriculationNumber {
         return matriculationNumber;
     }
 
+    // Those variables are needed for the setter - only a valid number will be set;
     Matcher inputMatcher;
     boolean matchFound;
     String validMatriculationRegEx = "[0-9]";
@@ -25,7 +28,6 @@ public class MatriculationNumber {
         for (int i = 0; i < matriculationNumberFillUp; i++) {
             newMatriculationNumber += "0";
         }
-
         newMatriculationNumber += Integer.toString(MatriculationNumber.matriculationNumberCounter);
 
         return newMatriculationNumber;

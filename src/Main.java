@@ -5,16 +5,21 @@ public class Main {
 
     public static void main(String[] args) {
 
+        // This section simply creates the first objects for testing purposes - when using a database this is unnecessary!
+        // Create the *main* University object, everything else is built on top;
         University othRegensburg = new University("OTH Regensburg");
 
+        // Create StudyCurriculum objects;
         StudyCurriculum curriculumEconomicInformationBachelor = new StudyCurriculum("Wirtschaftsinformatik (Bachelor)");
         StudyCurriculum curriculumEconomicInformationMaster = new StudyCurriculum("Wirtschaftsinformatik (Master)");
         StudyCurriculum curriculumGeneralInformationBachelor = new StudyCurriculum("Allgemeine Informatik (Bachelor)");
 
+        // Add the StudyCurriculum objects to the University object;
         othRegensburg.addCurriculaToUniversity(curriculumEconomicInformationBachelor);
         othRegensburg.addCurriculaToUniversity(curriculumEconomicInformationMaster);
         othRegensburg.addCurriculaToUniversity(curriculumGeneralInformationBachelor);
 
+        // Create StudyCourse objects;
         StudyCourse courseProgrammingOne = new StudyCourse("Programmieren 1", 8, 1);
         StudyCourse courseProgrammingTwo = new StudyCourse("Programmieren 2", 8, 1);
         StudyCourse courseEconomicsOne = new StudyCourse("BWL 1", 7, 1);
@@ -22,6 +27,7 @@ public class Main {
         StudyCourse courseModDataStructure = new StudyCourse("Moderne Datenbankkonzepte", 7, 1);
         StudyCourse courseBusinessConsulting = new StudyCourse("Business Consulting" , 7, 1);
 
+        // Add the created StudyCourse objects to the StudyCurriculum objects;
         curriculumEconomicInformationBachelor.addStudyCourseToCurriculum(courseProgrammingOne);
         curriculumEconomicInformationBachelor.addStudyCourseToCurriculum(courseProgrammingTwo);
         curriculumEconomicInformationBachelor.addStudyCourseToCurriculum(courseEconomicsOne);
@@ -33,25 +39,27 @@ public class Main {
         curriculumGeneralInformationBachelor.addStudyCourseToCurriculum(courseProgrammingOne);
         curriculumGeneralInformationBachelor.addStudyCourseToCurriculum(courseProgrammingTwo);
 
-        // Test student
-        MatriculationNumber firstTestStudentMatricularNumber = new MatriculationNumber();
-        firstTestStudentMatricularNumber.setMatriculationNumber("12345679");
-        othRegensburg.addStudentToUniversity("Ringo", "Kugelfade",  firstTestStudentMatricularNumber, curriculumEconomicInformationBachelor);
-        // Second test student - this time adding the student to the university!
-        MatriculationNumber secondTestStudentMatricularNumber = new MatriculationNumber();
-        secondTestStudentMatricularNumber.setMatriculationNumber("42042069");
-        othRegensburg.addStudentToUniversity("Jack", "Peppermint", secondTestStudentMatricularNumber, curriculumEconomicInformationMaster);
-        // Third test student - this time utilizing the automatically generated matriculation number
+        // First test student - testing the 'setMatriculationNumber' method of the 'MatriculationNumber' class;
+        MatriculationNumber firstTestStudentMatriculationNumber = new MatriculationNumber();
+        firstTestStudentMatriculationNumber.setMatriculationNumber("12345679");
+        othRegensburg.addStudentToUniversity("Ringo", "Kugelfade",  firstTestStudentMatriculationNumber, curriculumEconomicInformationBachelor);
+
+        // Second test student;
+        MatriculationNumber secondTestStudentMatriculationNumber = new MatriculationNumber();
+        secondTestStudentMatriculationNumber.setMatriculationNumber("42042069");
+        othRegensburg.addStudentToUniversity("Jack", "Peppermint", secondTestStudentMatriculationNumber, curriculumEconomicInformationMaster);
+
+        // Third test student - this time utilizing the automatically generated matriculation number;
         MatriculationNumber thirdTestStudentMatriculationNumber = new MatriculationNumber();
         othRegensburg.addStudentToUniversity("Natali", "Dore", thirdTestStudentMatriculationNumber, curriculumGeneralInformationBachelor);
 
-        // Actual 'Student Management Application'
+        // Begin of the actual 'Student Management Application';
         boolean runTimeLoop = true;
         int menuOption;
-        UserInput menuInput = new UserInput();
+        UserInput menuInput = new UserInput();      // Check the class to see how it works;
 
         while (runTimeLoop) {
-            menuChoices();
+            menuChoices();      // Simply prints Strings to inform the user of the possible options;
             menuOption = menuInput.userInputInt("Choose operation: ", "[1-6]", 1);
 
             switch (menuOption) {
@@ -90,8 +98,7 @@ public class Main {
         UserInput userInput = new UserInput();
         String inputRegEx;
         int inputMaxLength;
-
-        Student tempStudent = chooseStudentIndex(university);
+        Student tempStudent = chooseStudentIndex(university);       // Prints a list of all enlisted students and lets the user chose one;
 
         while (runTimeFlag) {
 
@@ -107,6 +114,7 @@ public class Main {
                     System.out.println("Subject: " + tempStudyCourse.getStudyCourseName());
                     System.out.printf("Mark: %,.2f\n", tempStudyCourse.getCourseMark());
 
+                    // TODO: It is currently not possible to enter doubles as marks;
                     inputRegEx = "[" + 1 + "-" + 6 + "]";
                     int newStudyCourseMark = userInput.userInputInt("Enter new mark: ", inputRegEx, inputMaxLength);
 
@@ -122,6 +130,7 @@ public class Main {
         }
     }
 
+    // Lets the user *only* edit the fundamental data of a student;
     public static void editEnlistedStudentsData(University university) {
         Student tempStudent = chooseStudentIndex(university);
         UserInput userInput = new UserInput();
@@ -160,7 +169,11 @@ public class Main {
                     for (int i = 0; i < arrayListLength; i++) {
                         System.out.println((i + 1) + ": " + university.getAvailableStudyCurricula().get(i).getCurriculumName());
                     }
+
+                    // Jup... this here creates a String in the 'RegEx' format, the values lie between one and the size of available options;
                     inputRegEx = "[" + 1 + "-" + arrayListLength + "]";
+
+                    // inputMaxLength first takes the size of the ArrayList of available StudyCurricula, then converts it into a String, then takes the Strings length!;
                     inputMaxLength = String.valueOf(university.getAvailableStudyCurricula().size()).length();
                     menuOptionNewCurriculum = userInput.userInputInt("Enter new curriculum: ", inputRegEx, inputMaxLength) - 1;
                     tempStudent.changeCurriculum(university.getAvailableStudyCurricula().get(menuOptionNewCurriculum));
@@ -191,7 +204,6 @@ public class Main {
 
         int chooseCurriculum = userInput.userInputInt("Choose curriculum: ", indexRegEx, inputMaxLength) - 1;
         university.addStudentToUniversity(firstName, lastName, new MatriculationNumber(), university.getAvailableStudyCurricula().get(chooseCurriculum));
-
         System.out.println("New student added :)\n");
     }
 
@@ -248,7 +260,6 @@ public class Main {
 
         for (int i = 0; i < university.getEnlistedStudent().size(); i++) {
             tempStudent = university.getEnlistedStudent().get(i);
-
             System.out.println((i + 1) + ". " + tempStudent.getMatriculation().getMatriculationNumber() + " " + tempStudent.getLastName());
         }
     }
