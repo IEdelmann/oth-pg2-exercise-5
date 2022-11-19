@@ -24,7 +24,13 @@ public class UserInput {
     // Return just a String without any funky regex business;
     public String userInputPureString(String prompt) {
         System.out.println(prompt);
-        return myScanner.nextLine();
+        String userInput = myScanner.nextLine();
+
+        if (userInput.length() > 25) {
+            return userInput.substring(0, 25);
+        }
+
+        return userInput;
     }
 
     // This function actually is only used as part of the other ones, hence it's private;

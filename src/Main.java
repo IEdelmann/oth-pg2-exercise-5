@@ -176,8 +176,14 @@ public class Main {
                     // inputMaxLength first takes the size of the ArrayList of available StudyCurricula, then converts it into a String, then takes the Strings length!;
                     inputMaxLength = String.valueOf(university.getAvailableStudyCurricula().size()).length();
                     menuOptionNewCurriculum = userInput.userInputInt("Enter new curriculum: ", inputRegEx, inputMaxLength) - 1;
-                    tempStudent.changeCurriculum(university.getAvailableStudyCurricula().get(menuOptionNewCurriculum));
-                    System.out.println("Curriculum changed!\n");
+
+                    // If there were 11 items, and the user would enter for example 19, it would crash the program with an 'out of index' error;
+                    if (menuOptionNewCurriculum > university.getAvailableStudyCurricula().size()) {
+                        System.out.println("ERROR - out of index! No changes are done!");
+                    } else {
+                        tempStudent.changeCurriculum(university.getAvailableStudyCurricula().get(menuOptionNewCurriculum));
+                        System.out.println("Curriculum changed!\n");
+                    }
                 }
 
                 case 3 -> {
@@ -203,8 +209,13 @@ public class Main {
         int inputMaxLength = String.valueOf(university.getAvailableStudyCurricula().size()).length();
 
         int chooseCurriculum = userInput.userInputInt("Choose curriculum: ", indexRegEx, inputMaxLength) - 1;
-        university.addStudentToUniversity(firstName, lastName, new MatriculationNumber(), university.getAvailableStudyCurricula().get(chooseCurriculum));
-        System.out.println("New student added :)\n");
+
+        if (chooseCurriculum > university.getAvailableStudyCurricula().size()) {
+            System.out.println("ERROR - out of index! Student is not added!");
+        } else {
+            university.addStudentToUniversity(firstName, lastName, new MatriculationNumber(), university.getAvailableStudyCurricula().get(chooseCurriculum));
+            System.out.println("New student added :)\n");
+        }
     }
 
     public static StudyCourse chooseStudyCourseIndex(Student student) {
@@ -216,7 +227,11 @@ public class Main {
         UserInput userInput = new UserInput();
         String indexRegEx = "[" + 1 + "-" + student.getEnrolledCourses().size() + "]";
         int inputMaxLength = String.valueOf(student.getEnrolledCourses().size()).length();
-        int indexCourse = userInput.userInputInt("Enter index: ", indexRegEx, inputMaxLength) - 1;
+        int indexCourse;
+
+        do {
+            indexCourse = userInput.userInputInt("Enter index: ", indexRegEx, inputMaxLength) - 1;
+        } while (indexCourse > student.getEnrolledCourses().size());
 
         return student.getEnrolledCourses().get(indexCourse);
     }
@@ -228,7 +243,11 @@ public class Main {
         UserInput userInput = new UserInput();
         String indexRegEx = "[" + 1 + "-" + university.getEnlistedStudent().size() + "]";
         int inputMaxLength = String.valueOf(university.getEnlistedStudent().size()).length();
-        int indexStudent = userInput.userInputInt("Enter index: ", indexRegEx, inputMaxLength) - 1;
+        int indexStudent;
+
+        do {
+            indexStudent = userInput.userInputInt("Enter index: ", indexRegEx, inputMaxLength) - 1;
+        } while (indexStudent > university.getEnlistedStudent().size());
 
         return university.getEnlistedStudent().get(indexStudent);
     }
